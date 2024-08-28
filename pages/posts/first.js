@@ -12,9 +12,9 @@ function FirstPost({ stars }) {
             <Head>
                <title>My First Post</title>
             </Head>
-            <h1>My First Post</h1>
+            <h1 className=' '>My First Post</h1>
             <h2>
-               <Link href="/">Home</Link>
+               <Link className=' text-blue-500 underline' href="/">Home</Link>
                <div>Next stars: {stars !== undefined ? stars : 'N/A'}</div>
             </h2>
          </Container>
