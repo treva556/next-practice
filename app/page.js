@@ -1,34 +1,35 @@
 
 
 // app/page.js
-import Link from 'next/link'
-import Head from 'next/head'
+import Link from 'next/link';
+import Head from 'next/head';
 
-async function HomePage() {
-   let stars = null;
-
+async function fetchStars() {
    try {
       const res = await fetch('https://api.github.com/repos/vercel/next.js');
       const json = await res.json();
-      stars = json.stargazers_count ?? null;
+      return json.stargazers_count;
    } catch (error) {
-      console.error("Failed to fetch stars:", error);
+      console.error('Failed to fetch stars:', error);
+      return null;
    }
+}
+
+export default async function HomePage() {
+   const stars = await fetchStars();
 
    return (
       <>
          <Head>
             <title>Welcome to Next.js!</title>
          </Head>
-         <div className='p-4 border border-black ml-4 mt-4 mr-4'>
-            <div className='text-red-600'>Welcome to Next.js!</div>
-            <Link className='text-blue-500 underline' href="/posts/first">First Post</Link>
-            <br />
-            <div>Next stars: {stars !== undefined ? stars : 'N/A'}</div>
-            <img src="/man.png" alt="TutorialsPoint Logo" />
-         </div>
+         <div>Welcome to Next.js!</div>
+         <span>
+            <Link href="/posts/first" className=' text-blue-400 underline'>First Post</Link>
+         </span>
+         <br/>
+         <div>Next stars: {stars !== null ? stars : 'N/A'}</div>
+         <img src="/man.png" alt="TutorialsPoint Logo" />
       </>
    );
 }
-
-export default HomePage;
