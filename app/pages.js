@@ -1,4 +1,0 @@
-
-
-
-// pages/index.js
